@@ -2,11 +2,12 @@ import streamlit as st
 import pandas as pd
 
 # Page setup
+# Show app logo at top left
+st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
+
 st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
 st.title("🔧 HVAC O&M Maturity Diagnostic Tool")
 
-# Show app logo at top left
-st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=120)
 
 # Display logos side by side
 #col1, col2 = st.columns([1, 5])
@@ -171,5 +172,5 @@ for dim in dimensions:
 
 # Footer with company logo
 st.markdown("---")
-st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=100)
+st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
