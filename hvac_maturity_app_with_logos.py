@@ -190,11 +190,12 @@ buffer = io.BytesIO()
 company_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png"
 product_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png"
 
-# Page template with product logo in top right corner
-def add_page_logo(canvas, doc):
-    canvas.saveState()
-    canvas.drawImage(product_logo_url, A4[0] - inch - 10, A4[1] - 0.6*inch, width=1.2*inch, height=0.4*inch, mask='auto')
-    canvas.restoreState()
+# Page template with product logo in top right corner (excluding first page)
+def add_product_logo(canvas, doc):
+    if doc.page > 1:
+        canvas.saveState()
+        canvas.drawImage(product_logo_url, A4[0] - inch - 10, A4[1] - 0.6*inch, width=1.2*inch, height=0.4*inch, mask='auto')
+        canvas.restoreState()
 
 # Styles
 styles = getSampleStyleSheet()
@@ -207,13 +208,15 @@ bold_style = ParagraphStyle(name='BoldStyle', parent=normal_style, fontName='Hel
 doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
 doc.addPageTemplates([
-    PageTemplate(id='LogoPages', frames=frame, onPage=add_page_logo)
+    PageTemplate(id='WithLogo', frames=frame, onPage=add_product_logo)
 ])
 
 elements = []
 
-# Cover page (no product logo)
-company_logo = Image(company_logo_url, width=2*inch, height=0.6*inch)
+# Cover page with company logo (scaled and aspect-ratio preserved)
+company_logo = Image(company_logo_url)
+company_logo.drawHeight = 0.9 * inch  # 1.5x larger than before
+company_logo.drawWidth = company_logo.imageWidth * company_logo.drawHeight / company_logo.imageHeight
 company_logo.hAlign = 'CENTER'
 elements.append(company_logo)
 elements.append(Spacer(1, 12))
@@ -223,8 +226,8 @@ elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_s
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
 elements.append(PageBreak())
 
-# Content pages (with logo)
-elements.append(Paragraph("<b>Capability Breakdown</b>", header_style))
+# Executive Summary Section
+elements.append(Paragraph("<b>Executive Summary</b>", title_style))
 elements.append(Spacer(1, 10))
 
 for row in report_data:
@@ -248,4 +251,3 @@ st.markdown(pdf_link, unsafe_allow_html=True)
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
-
