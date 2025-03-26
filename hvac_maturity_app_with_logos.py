@@ -194,7 +194,7 @@ try:
     pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
     pdf.add_font("DejaVu", "B", "DejaVuSans-Bold.ttf", uni=True)
     pdf.set_font("DejaVu", "", 24)
-    pdf.cell(0, 60, "", ln=True)
+    
     pdf.cell(0, 15, "HVAC O&M Maturity Diagnostic Report", ln=True, align="C")
     pdf.set_font("DejaVu", "", 14)
     pdf.ln(8)
@@ -207,7 +207,7 @@ except Exception as e:
 pdf.add_page()
 pdf.image("app_logo.png", x=165, y=10, w=30)
 pdf.set_font("DejaVu", "", 16)
-pdf.ln(20)
+pdf.ln(10)
 pdf.cell(0, 10, "HVAC O&M Maturity Summary", ln=True)
 pdf.set_font("DejaVu", "", 12)
 pdf.ln(5)
@@ -219,7 +219,7 @@ for row in report_data:
     pdf.add_page()
     pdf.image("app_logo.png", x=165, y=10, w=30)
     pdf.set_font("DejaVu", "B", 14)
-    pdf.ln(20)
+    pdf.ln(10)
     pdf.cell(0, 10, f"{row[0]} - {row[1]}", ln=True)
     
     pdf.set_font("DejaVu", "B", 11)
@@ -241,17 +241,6 @@ for row in report_data:
     pdf.image("company_logo.png", x=85, w=40)
 
 # Output PDF
-pdf_output = io.BytesIO()
-pdf.output(pdf_output)
-base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
-
-# Display and download
-st.markdown("### 📥 Download Your Professional PDF Report")
-pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Report.pdf">📄 Download PDF Report</a>'
-st.markdown(pdf_link, unsafe_allow_html=True)
-st.markdown("### 👀 Preview PDF Below")
-pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
-st.markdown(pdf_preview, unsafe_allow_html=True)
 
 pdf_output = io.BytesIO()
 pdf.output(pdf_output)
@@ -261,29 +250,10 @@ base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
 st.markdown("### 📥 Download Your Professional PDF Report")
 pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Report.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
-st.markdown("### 👀 Preview PDF Below")
-pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
-st.markdown(pdf_preview, unsafe_allow_html=True)
+#st.markdown("### 👀 Preview PDF Below")
+#pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
+#st.markdown(pdf_preview, unsafe_allow_html=True)
 
-pdf_output = io.BytesIO()
-pdf.output(pdf_output)
-base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
-
-# Display and download
-st.markdown("### 📥 Download Your Professional PDF Report")
-pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Report.pdf">📄 Download PDF Report</a>'
-st.markdown(pdf_link, unsafe_allow_html=True)
-st.markdown("### 👀 Preview PDF Below")
-pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
-st.markdown(pdf_preview, unsafe_allow_html=True)
-
-pdf_output = io.BytesIO()
-pdf.output(pdf_output)
-base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
-
-st.markdown("### 📥 Download PDF Summary")
-pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
-st.markdown(pdf_link, unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
