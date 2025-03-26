@@ -241,13 +241,7 @@ elements.append(Spacer(1, 12))
 elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
 elements.append(Spacer(1, 8))
-elements.append(Paragraph(f"<b>{maturity} Definition:</b> {maturity_definitions[maturity]}", normal_style))
 elements.append(Spacer(1, 12))
-elements.append(Paragraph("<b>Maturity Level Overview</b>", bold_style))
-elements.append(Spacer(1, 6))
-for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
-    elements.append(Paragraph(f"<b>{level}:</b> {maturity_definitions[level]}", normal_style))
-    elements.append(Spacer(1, 4))
 elements.append(Spacer(1, 12))
 elements.append(Paragraph("<b>Maturity Level Overview</b>", bold_style))
 elements.append(Spacer(1, 6))
@@ -255,7 +249,7 @@ for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
     elements.append(Paragraph(f"<b>{level}:</b> {maturity_definitions[level]}", normal_style))
     elements.append(Spacer(1, 4))
 elements.append(NextPageTemplate('WithLogo'))
-elements.append(PageBreak())
+elements.append(PageBreak()))
 
 # Executive Summary Page
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
