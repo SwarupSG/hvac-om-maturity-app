@@ -203,7 +203,7 @@ pdf.ln(10)
 
 for row in report_data:
     pdf.set_font("DejaVu", "", 12)
-    pdf.multi_cell(0, 8, f"{row[0]} – {row[1]}", ln=True)
+    pdf.multi_cell(0, 8, f"{row[0]} – {row[1]}")
     pdf.set_font("DejaVu", "", 11)
     pdf.multi_cell(0, 6, f"Next Step: {row[2]}")
     pdf.multi_cell(0, 6, f"Polaris Support: {row[3]}")
