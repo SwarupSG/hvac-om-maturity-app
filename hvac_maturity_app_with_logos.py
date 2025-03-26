@@ -210,6 +210,7 @@ title_style = ParagraphStyle(name='TitleStyle', fontSize=18, leading=22, alignme
 header_style = styles['Heading2']
 normal_style = styles['BodyText']
 bold_style = ParagraphStyle(name='BoldStyle', parent=normal_style, fontName='Helvetica-Bold')
+dimension_title_style = ParagraphStyle(name='DimensionTitle', fontSize=14, leading=18, fontName='Helvetica-Bold')
 
 # Set up the document and templates
 doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
@@ -241,7 +242,7 @@ elements.append(Paragraph("<b>Executive Summary</b>", title_style))
 elements.append(Spacer(1, 10))
 
 for row in report_data:
-    elements.append(Paragraph(f"<b>{row[0]} - {row[1]} ({row[2]})</b>", bold_style))
+    elements.append(Paragraph(f"{row[0]} - {row[1]} ({row[2]})", dimension_title_style))
     elements.append(Spacer(1, 4))
     elements.append(Paragraph(f"<b>{row[2]} Definition:</b> {safe_text(row[3])}", normal_style))
     elements.append(Spacer(1, 4))
@@ -250,7 +251,7 @@ for row in report_data:
     elements.append(Paragraph("<b>What could Pioneering (Level 4) look like?</b>", bold_style))
     elements.append(Paragraph(safe_text(row[5]), normal_style))
     elements.append(Spacer(1, 4))
-    elements.append(Paragraph("<b>How Polaris can support you:</b> " + safe_text(row[6]), normal_style))
+    elements.append(Paragraph("<b>How Polaris can support you?</b> " + safe_text(row[6]), normal_style))
     elements.append(Spacer(1, 10))
 
 # Finalize PDF
