@@ -5,7 +5,7 @@ import base64
 import io
 
 # Page setup
-st.set_page_config(page_title="HVAC Operations & Maintenance Maturity Diagnostic", layout="wide")
+st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
 
 # Show app logo at top left
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
@@ -16,12 +16,11 @@ st.markdown("""
 # Governance | Outcome Alignment | Fault Detection | Knowledge Capture | Process Structure
 """)
 
-# Define safe text cleaner
+# Safe text cleaner
 def safe_text(text):
-    return text.replace("–", "-").replace("•", "*").replace("“", "\"").replace("”", "\"").replace("’", "'")
+    return text.replace("–", "-").replace("•", "*").replace("“", """).replace("”", """).replace("’", "'")
 
-
-# Define capability dimensions and options
+# Define dimensions
 dimensions = [
     "Governance",
     "Outcome Alignment",
@@ -132,7 +131,7 @@ polaris_support = {
         "Polaris provides intelligent workflow automation and evolves task guidance based on performance feedback."
     ]
 }
-# User input collection
+# Collect input
 user_scores = {}
 report_data = []
 
@@ -147,10 +146,9 @@ for dim in dimensions:
     score = int(level.split(" - ")[0])
     user_scores[dim] = score
 
-# Calculate average score
+# Scoring and results
 average_score = sum(user_scores.values()) / len(user_scores)
 
-# Determine maturity stage
 if average_score == 4:
     maturity = "Pioneering"
 elif average_score >= 3:
@@ -160,10 +158,9 @@ elif average_score >= 2:
 else:
     maturity = "Reactive"
 
-# Show results
 st.markdown("---")
 st.header("🔍 Your Maturity Summary")
-st.metric("Average Score", f"{average_score:.2f}", help="Based on your selections")
+st.metric("Average Score", f"{average_score:.2f}")
 st.success(f"Overall Maturity Level: **{maturity}**")
 
 st.markdown("---")
@@ -174,25 +171,17 @@ for dim in dimensions:
     st.subheader(f"🔹 {dim}")
     st.write(f"**Next Step:** {recommendations[dim][i]}")
     st.write(f"**How Polaris Helps:** {polaris_support[dim][i]}")
-    report_data.append([
-        dim,
-        f"Level {i+1}",
-        recommendations[dim][i],
-        polaris_support[dim][i]
-    ])
-
-# Download PDF Summary
-st.markdown("---")
-st.header("📥 Download PDF Summary")
+    report_data.append([dim, f"Level {i+1}", recommendations[dim][i], polaris_support[dim][i]])
 
 # Build PDF using Unicode-safe font
+st.markdown("### 📥 Download PDF Summary")
 pdf = FPDF()
 pdf.add_page()
 try:
     pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
     pdf.set_font("DejaVu", "", 12)
 except Exception as e:
-    st.error("Unicode font DejaVuSans.ttf not found or failed to load. Please upload it to the same repo.")
+    st.error("⚠️ Unicode font 'DejaVuSans.ttf' not found or failed to load. Please upload it to your GitHub repo.")
 
 pdf.set_font("DejaVu", "", 16)
 pdf.cell(0, 10, "HVAC O&M Maturity Diagnostic Summary", ln=True)
@@ -217,14 +206,10 @@ pdf_output = io.BytesIO()
 pdf.output(pdf_output)
 base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
 
-st.markdown("### 📥 Download PDF Summary")
 pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
 
-pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
-st.markdown(pdf_link, unsafe_allow_html=True)
-
-# Footer with company logo
+# Footer
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
