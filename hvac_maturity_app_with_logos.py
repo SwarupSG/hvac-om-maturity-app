@@ -177,6 +177,7 @@ for dim in dimensions:
     report_data.append([
         dim,
         f"Level {i+1}",
+        descriptions[dim][i],
         recommendations[dim][i],
         polaris_support[dim][i]
     ])
@@ -235,9 +236,11 @@ elements.append(Spacer(1, 10))
 for row in report_data:
     elements.append(Paragraph(f"<b>{row[0]} - {row[1]}</b>", bold_style))
     elements.append(Spacer(1, 4))
-    elements.append(Paragraph("<b>Next Step:</b> " + safe_text(row[2]), normal_style))
+    elements.append(Paragraph(f"<b>{row[1]} Definition:</b> {safe_text(row[2])}", normal_style))
+    elements.append(Spacer(1, 4))
+    elements.append(Paragraph("<b>Next Step:</b> " + safe_text(row[3]), normal_style))
     elements.append(Spacer(1, 3))
-    elements.append(Paragraph("<b>Polaris Support:</b> " + safe_text(row[3]), normal_style))
+    elements.append(Paragraph("<b>Polaris Support:</b> " + safe_text(row[4]), normal_style))
     elements.append(Spacer(1, 10))
 
 # Finalize PDF
