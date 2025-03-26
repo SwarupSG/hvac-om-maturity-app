@@ -38,105 +38,105 @@ maturity_definitions = {
     "Pioneering": "O&M is proactive, collaborative, and continuously improving. Fault resolution is structured, trackable, and integrated across stakeholders. Data—automated or manual—is leveraged holistically to detect, resolve, and prevent faults. Governance is embedded in daily operations, enabling high performance and future readiness."
 }
 
-
-# Define descriptions for each dimension and level
+# Maturity Descriptions for Each Dimension and Level
 descriptions = {
     "Governance": [
         "Service providers self-govern with no oversight or accountability.",
-        "SLAs and KPIs are defined but not consistently enforced; SLAs don’t clearly link with business priorities and outcomes desired; service providers largely self-govern with limited oversight or accountability.",
-        "Accountability supported by real-time tracking and shared reporting.",
-        "Fully transparent tracking of all preselected high-priority O&M activities, with a proven link to desired outcomes."
+        "SLAs exist but are inconsistently tracked. Reporting is vendor-defined and not linked to business outcomes.",
+        "Governance is reinforced with shared dashboards, task-level tracking, and structured review mechanisms.",
+        "Governance is embedded in workflows with verified responsibilities and full accountability across critical tasks."
     ],
     "Outcome Alignment": [
-        "No link between O&M activity and building performance goals.",
-        "Metrics are tracked for reporting, but rarely used for action. There is no clear link between metrics and operational outcomes, and no prioritization of effort based on performance goals.",
-        "Metrics are reviewed regularly and begin to inform decisions. There is an emerging link between operational KPIs and business outcomes, enabling prioritization and more consistent follow-through.",
-        "O&M priorities and actions are selected based on desired business outcomes, then configured into an operating framework that drives governance, fault detection, and knowledge capture."
+        "O&M tasks are disconnected from building performance or business goals.",
+        "Metrics are reported but not actioned; decisions are reactive and outcome linkage is missing.",
+        "KPIs guide prioritization; operational decisions are increasingly data-driven and outcome-aligned.",
+        "All workflows are designed to deliver measurable outcomes aligned to evolving business priorities."
     ],
     "Fault Detection": [
-        "Reactive only; faults noticed after complaints or breakdowns.",
-        "Manual inspections and basic alerts provide partial visibility.",
-        "FDD exists but limited by data gaps; manual inspections operate separately. No unified fault view.",
-        "All detection methods (manual inspection & automated FDD engines) converge into one system; validation and escalation workflow included."
+        "Faults are addressed only after complaints or breakdowns occur.",
+        "Visibility is limited to basic inspections and uncoordinated alerts.",
+        "Automated detection exists but is siloed; no unified triage or root-cause validation.",
+        "Manual and automated detection methods are integrated; root-cause workflows and escalation paths are included."
     ],
     "Knowledge Capture": [
-        "No capture of building’s operational knowledge. Learning is individual and not retained or reused.",
-        "Operational knowledge is captured informally, often by individuals or vendors. No structured method for reuse.",
-        "Knowledge is captured during fault resolution and reused for similar cases. Reuse informs training and triage. Mobile interfaces support field capture and retrieval.",
-        "Embedded in workflows. All resolutions and insights are systematically captured and reused to guide fault response, inform technician decisions, and continuously improve training."
+        "No documentation of operational knowledge; reliance on individual experience.",
+        "Knowledge is captured informally and not reused consistently across the team.",
+        "Knowledge is captured during fieldwork and reused to speed up resolution and train technicians.",
+        "Captured insights improve decision-making and continuously evolve workflows and technician readiness."
     ],
     "Process Structure": [
-        "No formal process; actions vary by person and urgency.",
-        "Some processes exist but are inconsistently applied across teams.",
-        "Digital workflows improve consistency, guided by mobile apps for reporting and resolution management.",
-        "Intelligent, adaptive workflows—powered by mobile apps for guided fault resolution and technician optimization."
+        "No defined workflows; tasks are handled reactively based on individual decisions.",
+        "Workflows exist but are inconsistently applied or enforced across teams.",
+        "Tasks are digitized, tracked, and standardized through mobile apps and workflows.",
+        "Workflows are adaptive and continuously improved using analytics, technician feedback, and fault data."
     ]
 }
 
-# Define forward-looking recommendations and Polaris support per level
+# Recommendations to Advance Maturity Levels
 recommendations = {
     "Governance": [
-        "Start by defining most important Preventive Maintenance Activities & Faults based on business priorities. Introduce external verification and basic accountability across service providers.",
-        "Align most important activities with business priorities. Establish oversight mechanisms and routine performance reviews.",
-        "Digitally track assigned faults and resolution activities across all providers. Automate reporting and enforce governance policies.",
-        "Maintain transparent, outcome-driven governance. Use data to drive predictive risk control and continuous improvement."
+        "Identify critical preventive and fault resolution tasks and assign verification roles.",
+        "Align SLAs with business outcomes and establish routine oversight.",
+        "Digitally track all critical O&M tasks and automate compliance checks.",
+        "Use governance data to inform predictive risk mitigation and continuous improvement."
     ],
     "Outcome Alignment": [
-        "Define O&M goals linked to business outcomes. Identify priority activities that influence performance.",
-        "Prioritize actions using tracked metrics. Map O&M actions to specific business outcomes.",
-        "Link KPIs with business decisions. Use outcome metrics to set goals.",
-        "Continuously align operations with evolving business goals. Use AI or analytics to optimize priorities."
+        "Define business-aligned O&M goals and map top-priority actions.",
+        "Use tracked metrics to support decision-making and focus on outcomes.",
+        "Link operational KPIs to resource allocation and project planning.",
+        "Continuously optimize O&M strategies using AI and evolving performance targets."
     ],
     "Fault Detection": [
-        "Establish fault reporting culture. Implement manual logs and begin basic inspection routines.",
-        "Integrate alerts and logs into one platform. Review fault patterns to plan upgrades.",
-        "Unify automated FDD and manual detection with shared validation workflows and triage views.",
-        "Continuously optimize detection accuracy and integrate escalations into long-term planning."
+        "Introduce fault reporting culture; log issues manually and via inspections.",
+        "Consolidate inspection logs and alerts into a unified view.",
+        "Combine FDD and manual detection with root-cause validation workflows.",
+        "Use detection trends to drive long-term improvements and escalation management."
     ],
     "Knowledge Capture": [
-        "Begin capturing operational knowledge. Introduce templates for resolution logs and review routines.",
-        "Standardize structured logging across teams. Begin using logs to train and brief new technicians.",
-        "Connect knowledge capture to mobile workflows. Reuse insights to improve resolution speed and training.",
-        "Feed captured knowledge into continuous learning systems and advanced technician support tools."
+        "Start capturing resolution notes with standard templates.",
+        "Use logs to brief new staff and standardize informal knowledge.",
+        "Link capture to digital workflows and reuse to improve performance.",
+        "Continuously evolve technician guidance through structured learning systems."
     ],
     "Process Structure": [
-        "Create standard O&M checklists and assign responsibilities to promote consistency.",
-        "Document workflows. Introduce performance-linked reviews and improve task clarity.",
-        "Automate standard processes and enable real-time guidance using mobile apps.",
-        "Evolve workflows based on resolution analytics, technician input, and predictive fault models."
+        "Create checklists and SOPs for key O&M tasks.",
+        "Map out workflows and assign ownership for each process step.",
+        "Digitize all tasks and support consistency through mobile-first tools.",
+        "Refine workflows with predictive fault modeling and technician insights."
     ]
 }
 
+# How Polaris Supports Each Dimension at All Levels
 polaris_support = {
     "Governance": [
-        "Polaris simplifies setup and introduces structured O&M Framework capturing priorities linked to business priorities and outcomes.",
-        "Polaris links selected activities with outcomes and automates compliance reviews and escalation tracking.",
-        "Polaris enforces compliance through live dashboards and automatic reporting to stakeholders.",
-        "Polaris enables predictive governance by analyzing patterns across tasks, SLAs, and fault trends."
+        "Polaris introduces a structured O&M framework tied to business priorities, replacing ad hoc oversight.",
+        "Polaris automates SLA tracking and escalations linked to outcome-driven verification.",
+        "Polaris drives real-time governance via dashboards, task logs, and accountability loops.",
+        "Polaris supports predictive governance through insights into task trends, risk areas, and compliance."
     ],
     "Outcome Alignment": [
-        "Polaris helps map O&M actions to performance outcomes with visual dashboards and goal alignment.",
-        "Polaris connects O&M activities with business priorities using performance-driven dashboards.",
-        "Polaris translates KPI trends into actionable insights and aligns team focus with business outcomes.",
-        "Polaris continuously aligns O&M tasks with strategic priorities using AI-driven recommendations."
+        "Polaris maps HVAC tasks to business outcomes using visual dashboards.",
+        "Polaris connects O&M actions to tracked KPIs, guiding smarter prioritization.",
+        "Polaris analyzes KPI trends and informs operational alignment in real-time.",
+        "Polaris adapts task and team focus dynamically using AI-driven goal matching."
     ],
     "Fault Detection": [
-        "Polaris configures HVAC system into a fault framework and enable fault logging from inspections through mobile app."
-        "Polaris enables fault logging from inspections through mobile app and automates first-level fault categorization.",
-        "Polaris integrates all fault sources and prioritizes fault resolution through a unified triage interface.",
-        "Polaris unifies automated and manual fault detection and assigns validated root-causes automatically.",
+        "Polaris enables inspection-based fault logging via mobile, even without BMS data.",
+        "Polaris integrates basic and automated alerts into a structured triage platform.",
+        "Polaris unifies FDD and manual detection with root-cause validation workflows.",
+        "Polaris drives fault lifecycle workflows, assigning causes and tracking escalations."
     ],
     "Knowledge Capture": [
-        "Polaris mobile app work flow capture operational knowledge during daily tasks.",
-        "Polaris captures and centralizes resolution notes for reuse and supports technician knowledge sharing.",
-        "Polaris reuses captured resolutions to improve triage speed and optimize technician guidance.",
-        "Polaris evolves its knowledge base with each resolution to enhance technician effectiveness."
+        "Polaris captures knowledge during fault resolution using guided mobile workflows.",
+        "Polaris centralizes resolution logs and shares them across users and teams.",
+        "Polaris reuses insights to speed up diagnosis and improve technician readiness.",
+        "Polaris builds an evolving knowledge base that improves workflows and training."
     ],
     "Process Structure": [
-        "Polaris provides guided workflows to standardize task execution.",
-        "Polaris enables consistent workflows across teams via digital tracking and mobile task support.",
-        "Polaris digitizes and adapts workflows dynamically based on fault data and process analytics.",
-        "Polaris provides intelligent workflow automation and evolves task guidance based on performance feedback."
+        "Polaris provides templates and checklists to structure routine O&M actions.",
+        "Polaris enables consistent workflow execution across teams using mobile guidance.",
+        "Polaris digitizes workflows and adapts them using process feedback loops.",
+        "Polaris evolves task management dynamically through analytics and technician inputs."
     ]
 }
 
