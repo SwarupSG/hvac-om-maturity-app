@@ -7,6 +7,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, PageBreak, Frame, PageTemplate
+from reportlab.lib.units import inch
 
 # Page setup
 st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
