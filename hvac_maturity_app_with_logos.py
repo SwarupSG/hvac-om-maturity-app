@@ -33,6 +33,7 @@ dimensions = [
 levels = ["1 - Reactive", "2 - Self Aware", "3 - Forward Thinking", "4 - Pioneering"]
 
 
+
 # Define descriptions for each dimension and level
 descriptions = {
     "Governance": [
@@ -133,6 +134,7 @@ polaris_support = {
         "Polaris provides intelligent workflow automation and evolves task guidance based on performance feedback."
     ]
 }
+
 # Collect input
 user_scores = {}
 report_data = []
@@ -249,7 +251,6 @@ base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
 st.markdown("### 📥 Download PDF Summary")
 pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
-
 
 # Show PDF preview inline
 #st.markdown("### 👀 Preview PDF Below")
