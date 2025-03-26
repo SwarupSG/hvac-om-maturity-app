@@ -178,8 +178,10 @@ for dim in dimensions:
     report_data.append([
         dim,
         f"Level {i+1}",
+        levels[i],
         descriptions[dim][i],
         recommendations[dim][i],
+        descriptions[dim][3],
         polaris_support[dim][i]
     ])
 
@@ -196,7 +198,6 @@ product_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-
 def add_product_logo(canvas, doc):
     if doc.page > 1:
         canvas.saveState()
-        # Maintain aspect ratio and position slightly to the left
         logo_width = 1.1 * inch
         logo_height = 0.37 * inch
         canvas.drawImage(product_logo_url, A4[0] - logo_width - 30, A4[1] - logo_height - 30,
@@ -240,13 +241,16 @@ elements.append(Paragraph("<b>Executive Summary</b>", title_style))
 elements.append(Spacer(1, 10))
 
 for row in report_data:
-    elements.append(Paragraph(f"<b>{row[0]} - {row[1]}</b>", bold_style))
+    elements.append(Paragraph(f"<b>{row[0]} - {row[1]} ({row[2]})</b>", bold_style))
     elements.append(Spacer(1, 4))
-    elements.append(Paragraph(f"<b>{row[1]} Definition:</b> {safe_text(row[2])}", normal_style))
+    elements.append(Paragraph(f"<b>{row[2]} Definition:</b> {safe_text(row[3])}", normal_style))
     elements.append(Spacer(1, 4))
-    elements.append(Paragraph("<b>Next Step:</b> " + safe_text(row[3]), normal_style))
-    elements.append(Spacer(1, 3))
-    elements.append(Paragraph("<b>Polaris Support:</b> " + safe_text(row[4]), normal_style))
+    elements.append(Paragraph("<b>Next Step:</b> " + safe_text(row[4]), normal_style))
+    elements.append(Spacer(1, 4))
+    elements.append(Paragraph("<b>What could Pioneering (Level 4) look like?</b>", bold_style))
+    elements.append(Paragraph(safe_text(row[5]), normal_style))
+    elements.append(Spacer(1, 4))
+    elements.append(Paragraph("<b>How Polaris can support you:</b> " + safe_text(row[6]), normal_style))
     elements.append(Spacer(1, 10))
 
 # Finalize PDF
@@ -262,4 +266,3 @@ st.markdown(pdf_link, unsafe_allow_html=True)
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
-
