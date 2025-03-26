@@ -30,6 +30,13 @@ dimensions = [
 
 levels = ["1 - Reactive", "2 - Self Aware", "3 - Forward Thinking", "4 - Pioneering"]
 
+# Maturity level definitions
+maturity_definitions = {
+    "Reactive": "O&M actions are taken only after issues occur, typically in response to occupant complaints or equipment breakdowns. There are no formal processes, no performance tracking, and minimal documentation. Decisions are based on urgency rather than planning.",
+    "Self Aware": "The organization has basic visibility into O&M activities with some checklists, manual inspections, and incomplete record-keeping. Metrics are tracked inconsistently and used for reporting, not action. There is no structured connection between operations and business outcomes.",
+    "Forward Thinking": "O&M processes are digitally supported, with consistent tracking of faults, performance, and maintenance activities. Operational decisions are increasingly guided by metrics, and teams are held accountable through defined roles, goals, and periodic reviews. Fault detection is integrated but still siloed.",
+    "Pioneering": "O&M is outcome-aligned, predictive, and strategically integrated with business goals. All processes, insights, and learning are captured, reused, and continuously improved through AI-driven analysis and cross-team collaboration. Faults are detected early, resolved efficiently, and used to drive systemic improvements."
+}
 
 
 # Define descriptions for each dimension and level
@@ -194,7 +201,6 @@ buffer = io.BytesIO()
 company_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png"
 product_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png"
 
-# Page template with product logo in top right corner (excluding first page)
 def add_product_logo(canvas, doc):
     if doc.page > 1:
         canvas.saveState()
@@ -212,7 +218,7 @@ normal_style = styles['BodyText']
 bold_style = ParagraphStyle(name='BoldStyle', parent=normal_style, fontName='Helvetica-Bold')
 dimension_title_style = ParagraphStyle(name='DimensionTitle', fontSize=14, leading=18, fontName='Helvetica-Bold')
 
-# Set up the document and templates
+# Set up PDF
 doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
 doc.addPageTemplates([
@@ -221,7 +227,7 @@ doc.addPageTemplates([
 
 elements = []
 
-# Cover page with company logo (scaled with aspect ratio preserved and capped size)
+# Cover Page
 company_logo = Image(company_logo_url)
 max_logo_height = 1.2 * inch
 aspect = company_logo.imageWidth / float(company_logo.imageHeight)
@@ -234,10 +240,18 @@ elements.append(Paragraph("<b>HVAC O&M Maturity Diagnostic Summary</b>", title_s
 elements.append(Spacer(1, 12))
 elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
+elements.append(Spacer(1, 8))
+elements.append(Paragraph(f"<b>{maturity} Definition:</b> {maturity_definitions[maturity]}", normal_style))
+elements.append(Spacer(1, 12))
+elements.append(Paragraph("<b>Maturity Level Overview</b>", bold_style))
+elements.append(Spacer(1, 6))
+for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
+    elements.append(Paragraph(f"<b>{level}:</b> {maturity_definitions[level]}", normal_style))
+    elements.append(Spacer(1, 4))
 elements.append(NextPageTemplate('WithLogo'))
 elements.append(PageBreak())
 
-# Executive Summary Section with product logo auto-applied by template
+# Executive Summary Page
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
 elements.append(Spacer(1, 10))
 
