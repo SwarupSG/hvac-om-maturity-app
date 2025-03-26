@@ -2,10 +2,12 @@ import streamlit as st
 import pandas as pd
 
 # Page setup
+st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
+
 # Show app logo at top left
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
 
-st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
+# App title
 st.title("🔧 HVAC O&M Maturity Diagnostic Tool")
 
 
