@@ -199,7 +199,7 @@ try:
     pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True, align="C")
     pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True, align="C")
 except Exception as e:
-    st.error("⚠️ Font error: Make sure both DejaVuSans.ttf and DejaVuSans-Bold.ttf are uploaded to your GitHub repo.")
+    st.error("⚠️ Unicode font 'DejaVuSans.ttf' not found or failed to load. Please upload it to your GitHub repo.")
 
 # Logo page
 pdf.add_page()
@@ -253,10 +253,6 @@ st.markdown("### 📥 Download PDF Summary")
 pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
 
-# Show PDF preview inline
-#st.markdown("### 👀 Preview PDF Below")
-#pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
-#st.markdown(pdf_preview, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
