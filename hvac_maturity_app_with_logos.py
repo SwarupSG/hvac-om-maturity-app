@@ -213,10 +213,12 @@ doc.addPageTemplates([
 
 elements = []
 
-# Cover page with company logo (scaled and aspect-ratio preserved)
+# Cover page with company logo (scaled with aspect ratio preserved and capped size)
 company_logo = Image(company_logo_url)
-company_logo.drawHeight = 0.9 * inch  # 1.5x larger than before
-company_logo.drawWidth = company_logo.imageWidth * company_logo.drawHeight / company_logo.imageHeight
+max_logo_height = 1.2 * inch
+aspect = company_logo.imageWidth / float(company_logo.imageHeight)
+company_logo.drawHeight = max_logo_height
+company_logo.drawWidth = max_logo_height * aspect
 company_logo.hAlign = 'CENTER'
 elements.append(company_logo)
 elements.append(Spacer(1, 12))
@@ -226,7 +228,7 @@ elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_s
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
 elements.append(PageBreak())
 
-# Executive Summary Section
+# Executive Summary Section with product logo auto-applied by template
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
 elements.append(Spacer(1, 10))
 
