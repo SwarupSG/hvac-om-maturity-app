@@ -5,13 +5,16 @@ import pandas as pd
 st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
 st.title("🔧 HVAC O&M Maturity Diagnostic Tool")
 
+# Show app logo at top left
+st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=120)
+
 # Display logos side by side
-col1, col2 = st.columns([1, 5])
-with col1:
-    st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
-with col2:
-    st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
-    #st.caption("Powered by Polaris Co-Pilot")
+#col1, col2 = st.columns([1, 5])
+#with col1:
+#    st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
+#with col2:
+#    st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
+#    #st.caption("Powered by Polaris Co-Pilot")
 
 # Define capability dimensions and options
 dimensions = [
@@ -165,3 +168,8 @@ for dim in dimensions:
     st.subheader(f"🔹 {dim}")
     st.write(f"**Next Step:** {recommendations[dim][i]}")
     st.write(f"**How Polaris Helps:** {polaris_support[dim][i]}")
+
+# Footer with company logo
+st.markdown("---")
+st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=100)
+st.caption("Built by Sustain Synergy Pte. Ltd.")
