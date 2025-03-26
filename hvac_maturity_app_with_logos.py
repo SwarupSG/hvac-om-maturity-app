@@ -188,31 +188,33 @@ st.header("📥 Download PDF Summary")
 
 from fpdf import FPDF
 
+# Build PDF using Unicode-safe font
 pdf = FPDF()
 pdf.add_page()
-#pdf.add_font("ArialUnicode", "", fname="ArialUnicodeMS.ttf", uni=True)
-#pdf.set_font("ArialUnicode", size=12)
 pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
-pdf.set_font("DejaVu", "", 12)
+pdf.set_font("DejaVu", "", 16)
+pdf.cell(0, 10, "HVAC O&M Maturity Diagnostic Summary", ln=True)
 
-pdf.set_font("DejaVu", size=12)
+pdf.set_font("DejaVu", "", 12)
 pdf.ln(5)
 pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True)
 pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True)
 pdf.ln(10)
 
 for row in report_data:
-    pdf.set_font("DejaVu", "B", 12)
-    pdf.multi_cell(0, 8, f"{row[0]} – {row[1]}")
-    pdf.set_font("DejaVu", size=11)
+    pdf.set_font("DejaVu", "", 12)
+    pdf.multi_cell(0, 8, f"{row[0]} – {row[1]}", ln=True)
+    pdf.set_font("DejaVu", "", 11)
     pdf.multi_cell(0, 6, f"Next Step: {row[2]}")
     pdf.multi_cell(0, 6, f"Polaris Support: {row[3]}")
     pdf.ln(4)
 
+# Output and download link
 pdf_output = io.BytesIO()
 pdf.output(pdf_output)
 base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
 
+st.markdown("### 📥 Download PDF Summary")
 pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
 
