@@ -178,13 +178,14 @@ for dim in dimensions:
     report_data.append([dim, f"Level {i+1}", recommendations[dim][i], polaris_support[dim][i]])
 
 # Build PDF using Unicode-safe font
-#st.markdown("### 📥 Download PDF Summary")
+st.markdown("### 📥 Download PDF Summary")
+
 
 
 pdf = FPDF()
-pdf.set_auto_page_break(auto=True, margin=15)
-pdf.set_left_margin(15)
-pdf.set_right_margin(15)
+pdf.set_auto_page_break(auto=True, margin=20)
+pdf.set_left_margin(20)
+pdf.set_right_margin(20)
 
 # Cover Page
 pdf.add_page()
@@ -199,39 +200,56 @@ try:
     pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True, align="C")
     pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True, align="C")
 except Exception as e:
-    st.error("⚠️ Unicode font 'DejaVuSans.ttf' not found or failed to load. Please upload it to your GitHub repo.")
+    st.error("⚠️ Font error: Ensure both DejaVuSans.ttf and DejaVuSans-Bold.ttf are uploaded to your GitHub repo.")
 
-# Logo page
+# Summary Page
 pdf.add_page()
-pdf.image("app_logo.png", x=165, y=10, w=30)  # Product logo top-right
+pdf.image("app_logo.png", x=165, y=10, w=30)
 pdf.set_font("DejaVu", "", 16)
 pdf.ln(15)
-pdf.cell(0, 10, "HVAC O&M Maturity Diagnostic Summary", ln=True)
-
+pdf.cell(0, 10, "HVAC O&M Maturity Summary", ln=True)
 pdf.set_font("DejaVu", "", 12)
 pdf.ln(5)
 pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True)
 pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True)
 pdf.ln(10)
 
+# Per-dimension pages
 for row in report_data:
+    pdf.add_page()
+    pdf.image("app_logo.png", x=165, y=10, w=30)
+    pdf.set_font("DejaVu", "B", 16)
+    pdf.ln(20)
+    pdf.cell(0, 10, f"{row[0]} - {row[1]}", ln=True)
+    pdf.ln(5)
     pdf.set_font("DejaVu", "B", 12)
-    pdf.cell(0, 8, f"{row[0]} - {row[1]}", ln=True)
-    pdf.set_font("DejaVu", "B", 11)
-    pdf.cell(0, 6, "Next Step:", ln=True)
+    pdf.cell(0, 8, "Next Step:", ln=True)
     pdf.set_font("DejaVu", "", 11)
     pdf.multi_cell(0, 6, safe_text(row[2]))
-    pdf.set_font("DejaVu", "B", 11)
-    pdf.cell(0, 6, "Polaris Support:", ln=True)
+    pdf.ln(4)
+    pdf.set_font("DejaVu", "B", 12)
+    pdf.cell(0, 8, "Polaris Support:", ln=True)
     pdf.set_font("DejaVu", "", 11)
     pdf.multi_cell(0, 6, safe_text(row[3]))
-    pdf.ln(4)
+    
+    # Footer only once per page
+    pdf.set_y(-30)
+    pdf.set_font("DejaVu", "", 9)
+    pdf.cell(0, 10, "© 2025 Sustain Synergy Pte. Ltd. All rights reserved.", align="C")
+    pdf.image("company_logo.png", x=85, w=40)
 
-# Footer
-pdf.set_y(-30)
-pdf.set_font("DejaVu", "", 10)
-pdf.cell(0, 10, "© 2025 Sustain Synergy Pte. Ltd. All rights reserved.", align="C")
-pdf.image("company_logo.png", x=85, w=40)
+# Output PDF
+pdf_output = io.BytesIO()
+pdf.output(pdf_output)
+base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
+
+# Display and download
+#st.markdown("### 📥 Download Your Professional PDF Report")
+#pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Report.pdf">📄 Download PDF Report</a>'
+#st.markdown(pdf_link, unsafe_allow_html=True)
+#st.markdown("### 👀 Preview PDF Below")
+#pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
+#st.markdown(pdf_preview, unsafe_allow_html=True)
 
 pdf_output = io.BytesIO()
 pdf.output(pdf_output)
@@ -241,7 +259,6 @@ base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
 st.markdown("### 📥 Download Your Professional PDF Report")
 pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Report.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
-
 #st.markdown("### 👀 Preview PDF Below")
 #pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
 #st.markdown(pdf_preview, unsafe_allow_html=True)
@@ -253,7 +270,6 @@ base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
 #st.markdown("### 📥 Download PDF Summary")
 #pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
 #st.markdown(pdf_link, unsafe_allow_html=True)
-
 
 
 # Footer
