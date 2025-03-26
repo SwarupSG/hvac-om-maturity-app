@@ -1,27 +1,23 @@
-
 import streamlit as st
 import pandas as pd
-from fpdf import FPDF
-import base64
 import io
+import base64
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_CENTER
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
 
 # Page setup
 st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
-
-# Show app logo at top left
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
 
-# App title and dimensions in same visual style
 st.markdown("""
 # 🔧 HVAC O&M Maturity Diagnostic Tool Across Five Capability Dimensions  
 # Governance | Outcome Alignment | Fault Detection | Knowledge Capture | Process Structure
 """)
 
-# Safe text cleaner
-def safe_text(text):
-    return text.replace("–", "-").replace("•", "*").replace("“", """).replace("”", """).replace("’", "'")
-
-# Define dimensions
+# Define dimensions and levels
 dimensions = [
     "Governance",
     "Outcome Alignment",
@@ -135,12 +131,15 @@ polaris_support = {
     ]
 }
 
+
+def safe_text(text):
+    return text.replace("–", "-").replace("•", "*").replace("“", "\"").replace("”", "\"").replace("’", "'")
+
 # Collect input
 user_scores = {}
 report_data = []
 
 st.subheader("📊 Select Your Current Level for Each Capability")
-
 for dim in dimensions:
     st.subheader(f"🔹 {dim} – What Each Level Means")
     with st.expander("Click to view level definitions"):
@@ -150,9 +149,8 @@ for dim in dimensions:
     score = int(level.split(" - ")[0])
     user_scores[dim] = score
 
-# Scoring and results
+# Calculate maturity
 average_score = sum(user_scores.values()) / len(user_scores)
-
 if average_score == 4:
     maturity = "Pioneering"
 elif average_score >= 3:
@@ -175,91 +173,56 @@ for dim in dimensions:
     st.subheader(f"🔹 {dim}")
     st.write(f"**Next Step:** {recommendations[dim][i]}")
     st.write(f"**How Polaris Helps:** {polaris_support[dim][i]}")
-    report_data.append([dim, f"Level {i+1}", recommendations[dim][i], polaris_support[dim][i]])
+    report_data.append([
+        dim,
+        f"Level {i+1}",
+        recommendations[dim][i],
+        polaris_support[dim][i]
+    ])
 
-# Build PDF using Unicode-safe font
-st.markdown("### 📥 Download PDF Summary")
+# Generate PDF using ReportLab
+st.markdown("### 📅 Download PDF Summary")
 
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
+buffer = io.BytesIO()
+doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=30, leftMargin=30, topMargin=30, bottomMargin=30)
+elements = []
 
-
-
-pdf = FPDF()
-pdf.set_auto_page_break(auto=True, margin=20)
-pdf.set_left_margin(20)
-pdf.set_right_margin(20)
+styles = getSampleStyleSheet()
+title_style = ParagraphStyle(name='TitleStyle', fontSize=18, leading=22, alignment=TA_CENTER, spaceAfter=20)
+header_style = styles['Heading2']
+normal_style = styles['BodyText']
+bold_style = ParagraphStyle(name='BoldStyle', parent=normal_style, fontName='Helvetica-Bold')
 
 # Cover Page
-pdf.add_page()
-try:
-    pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
-    pdf.add_font("DejaVu", "B", "DejaVuSans-Bold.ttf", uni=True)
-    pdf.set_font("DejaVu", "", 24)
-    
-    pdf.cell(0, 15, "HVAC O&M Maturity Diagnostic Report", ln=True, align="C")
-    pdf.set_font("DejaVu", "", 14)
-    pdf.ln(8)
-    pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True, align="C")
-    pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True, align="C")
-except Exception as e:
-    st.error("⚠️ Font error: Ensure both DejaVuSans.ttf and DejaVuSans-Bold.ttf are uploaded to your GitHub repo.")
+elements.append(Paragraph("HVAC O&M Maturity Diagnostic Report", title_style))
+elements.append(Paragraph(f"Overall Maturity Level: <b>{maturity}</b>", normal_style))
+elements.append(Paragraph(f"Average Score: <b>{average_score:.2f}</b>", normal_style))
+elements.append(PageBreak())
 
-# Summary Page
-pdf.add_page()
-pdf.image("app_logo.png", x=165, y=10, w=30)
-pdf.set_font("DejaVu", "", 16)
-pdf.ln(10)
-pdf.cell(0, 10, "HVAC O&M Maturity Summary", ln=True)
-pdf.set_font("DejaVu", "", 12)
-pdf.ln(5)
-pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True)
-pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True)
-
-# Per-dimension pages
-pdf.add_page()
-pdf.set_font("DejaVu", "B", 14)
-pdf.cell(0, 10, "Capability Breakdown", ln=True)
-pdf.ln(5)
+# Summary
+elements.append(Paragraph("Capability Breakdown", header_style))
+elements.append(Spacer(1, 12))
 
 for row in report_data:
-    pdf.set_font("DejaVu", "B", 12)
-    pdf.cell(0, 10, f"{row[0]} - {row[1]}", ln=True)
+    elements.append(Paragraph(f"<b>{row[0]} - {row[1]}</b>", bold_style))
+    elements.append(Spacer(1, 6))
+    elements.append(Paragraph("<b>Next Step:</b> " + safe_text(row[2]), normal_style))
+    elements.append(Spacer(1, 4))
+    elements.append(Paragraph("<b>Polaris Support:</b> " + safe_text(row[3]), normal_style))
+    elements.append(Spacer(1, 12))
 
-    pdf.set_font("DejaVu", "B", 11)
-    pdf.cell(0, 6, "Next Step:", ln=True)
-    pdf.set_font("DejaVu", "", 11)
-    pdf.multi_cell(0, 6, safe_text(row[2]))
-    pdf.ln(1)
+# Finalize PDF
+doc.build(elements)
+buffer.seek(0)
+pdf_data = buffer.read()
 
-    pdf.set_font("DejaVu", "B", 11)
-    pdf.cell(0, 6, "Polaris Support:", ln=True)
-    pdf.set_font("DejaVu", "", 11)
-    pdf.multi_cell(0, 6, safe_text(row[3]))
-    pdf.ln(5)
-
-    pdf.line(20, pdf.get_y(), 190, pdf.get_y())
-    pdf.ln(5)
-
-    # Footer with logo and copyright
-    pdf.set_y(-25)
-    pdf.set_font("DejaVu", "", 9)
-    pdf.cell(0, 10, "© 2025 Sustain Synergy Pte. Ltd. All rights reserved.", align="C")
-    pdf.image("company_logo.png", x=85, w=40)
-
-# Output PDF
-
-pdf_output = io.BytesIO()
-pdf.output(pdf_output)
-base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
-
-# Display and download
-st.markdown("### 📥 Download Your Professional PDF Report")
-pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Report.pdf">📄 Download PDF Report</a>'
+pdf_base64 = base64.b64encode(pdf_data).decode("utf-8")
+pdf_link = f'<a href="data:application/pdf;base64,{pdf_base64}" download="HVAC_O&M_Maturity_Report.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
-#st.markdown("### 👀 Preview PDF Below")
-#pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
-#st.markdown(pdf_preview, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
+
