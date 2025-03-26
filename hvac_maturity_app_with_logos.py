@@ -178,7 +178,7 @@ for dim in dimensions:
     report_data.append([dim, f"Level {i+1}", recommendations[dim][i], polaris_support[dim][i]])
 
 # Build PDF using Unicode-safe font
-st.markdown("### 📥 Download PDF Summary")
+#st.markdown("### 📥 Download PDF Summary")
 
 
 pdf = FPDF()
