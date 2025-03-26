@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+from fpdf import FPDF
+import base64
+import io
 
 # Page setup
 st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
@@ -12,14 +15,6 @@ st.markdown("""
 # 🔧 HVAC O&M Maturity Diagnostic Tool Across Five Capability Dimensions  
 # Governance | Outcome Alignment | Fault Detection | Knowledge Capture | Process Structure
 """)
-
-# Display logos side by side
-#col1, col2 = st.columns([1, 5])
-#with col1:
-#    st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
-#with col2:
-#    st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
-#    #st.caption("Powered by Polaris Co-Pilot")
 
 # Define capability dimensions and options
 dimensions = [
@@ -135,6 +130,8 @@ polaris_support = {
 
 # User input collection
 user_scores = {}
+report_data = []
+
 st.subheader("📊 Select Your Current Level for Each Capability")
 
 for dim in dimensions:
@@ -173,6 +170,42 @@ for dim in dimensions:
     st.subheader(f"🔹 {dim}")
     st.write(f"**Next Step:** {recommendations[dim][i]}")
     st.write(f"**How Polaris Helps:** {polaris_support[dim][i]}")
+    report_data.append([
+        dim,
+        f"Level {i+1}",
+        recommendations[dim][i],
+        polaris_support[dim][i]
+    ])
+
+# Download PDF Summary
+st.markdown("---")
+st.header("📥 Download PDF Summary")
+
+pdf = FPDF()
+pdf.add_page()
+pdf.set_font("Arial", "B", 16)
+pdf.cell(0, 10, "HVAC O&M Maturity Diagnostic Summary", ln=True)
+
+pdf.set_font("Arial", size=12)
+pdf.ln(5)
+pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True)
+pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True)
+pdf.ln(10)
+
+for row in report_data:
+    pdf.set_font("Arial", "B", 12)
+    pdf.multi_cell(0, 8, f"{row[0]} – {row[1]}")
+    pdf.set_font("Arial", size=11)
+    pdf.multi_cell(0, 6, f"Next Step: {row[2]}")
+    pdf.multi_cell(0, 6, f"Polaris Support: {row[3]}")
+    pdf.ln(4)
+
+pdf_output = io.BytesIO()
+pdf.output(pdf_output)
+base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
+
+pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
+st.markdown(pdf_link, unsafe_allow_html=True)
 
 # Footer with company logo
 st.markdown("---")
