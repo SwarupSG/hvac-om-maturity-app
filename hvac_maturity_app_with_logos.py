@@ -218,9 +218,9 @@ pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" downloa
 st.markdown(pdf_link, unsafe_allow_html=True)
 
 # Show PDF preview inline
-st.markdown("### 👀 Preview PDF Below")
-pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
-st.markdown(pdf_preview, unsafe_allow_html=True)
+#st.markdown("### 👀 Preview PDF Below")
+#pdf_preview = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600px"></iframe>'
+#st.markdown(pdf_preview, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
