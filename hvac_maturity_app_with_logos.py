@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 from fpdf import FPDF
@@ -30,6 +31,7 @@ dimensions = [
 ]
 
 levels = ["1 - Reactive", "2 - Self Aware", "3 - Forward Thinking", "4 - Pioneering"]
+
 
 # Define descriptions for each dimension and level
 descriptions = {
@@ -175,6 +177,7 @@ for dim in dimensions:
 
 # Build PDF using Unicode-safe font
 st.markdown("### 📥 Download PDF Summary")
+
 pdf = FPDF()
 pdf.set_auto_page_break(auto=True, margin=15)
 pdf.set_left_margin(15)
@@ -199,7 +202,9 @@ for row in report_data:
     pdf.set_font("DejaVu", "", 12)
     try:
         pdf.multi_cell(0, 8, safe_text(f"{row[0]} - {row[1]}"))
+        pdf.ln(1)
         pdf.multi_cell(0, 6, safe_text(f"Next Step: {row[2]}"))
+        pdf.ln(1)
         pdf.multi_cell(0, 6, safe_text(f"Polaris Support: {row[3]}"))
         pdf.ln(4)
     except Exception as e:
