@@ -127,7 +127,6 @@ polaris_support = {
         "Polaris provides intelligent workflow automation and evolves task guidance based on performance feedback."
     ]
 }
-
 # User input collection
 user_scores = {}
 report_data = []
@@ -181,14 +180,6 @@ for dim in dimensions:
 st.markdown("---")
 st.header("📥 Download PDF Summary")
 
-#pdf = FPDF()
-#pdf.add_page()
-#pdf.set_font("Arial", "B", 16)
-#pdf.cell(0, 10, "HVAC O&M Maturity Diagnostic Summary", ln=True)
-
-from fpdf import FPDF
-
-# Build PDF using Unicode-safe font
 pdf = FPDF()
 pdf.add_page()
 pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
@@ -203,18 +194,19 @@ pdf.ln(10)
 
 for row in report_data:
     pdf.set_font("DejaVu", "", 12)
-    pdf.multi_cell(0, 8, f"{row[0]} – {row[1]}")
+    pdf.multi_cell(0, 8, safe_text(f"{row[0]} - {row[1]}"))
     pdf.set_font("DejaVu", "", 11)
-    pdf.multi_cell(0, 6, f"Next Step: {row[2]}")
-    pdf.multi_cell(0, 6, f"Polaris Support: {row[3]}")
+    try:
+        pdf.multi_cell(0, 6, safe_text(f"Next Step: {row[2]}"))
+        pdf.multi_cell(0, 6, safe_text(f"Polaris Support: {row[3]}"))
+    except Exception as e:
+        pdf.multi_cell(0, 6, "[Error rendering this section in PDF]")
     pdf.ln(4)
 
-# Output and download link
 pdf_output = io.BytesIO()
 pdf.output(pdf_output)
 base64_pdf = base64.b64encode(pdf_output.getvalue()).decode("utf-8")
 
-st.markdown("### 📥 Download PDF Summary")
 pdf_link = f'<a href="data:application/octet-stream;base64,{base64_pdf}" download="HVAC_O&M_Maturity_Summary.pdf">📄 Download PDF Report</a>'
 st.markdown(pdf_link, unsafe_allow_html=True)
 
