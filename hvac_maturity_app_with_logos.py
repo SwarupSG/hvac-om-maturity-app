@@ -190,19 +190,21 @@ from fpdf import FPDF
 
 pdf = FPDF()
 pdf.add_page()
-pdf.add_font("ArialUnicode", "", fname="ArialUnicodeMS.ttf", uni=True)
-pdf.set_font("ArialUnicode", size=12)
+#pdf.add_font("ArialUnicode", "", fname="ArialUnicodeMS.ttf", uni=True)
+#pdf.set_font("ArialUnicode", size=12)
+pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
+pdf.set_font("DejaVu", "", 12)
 
-pdf.set_font("Arial", size=12)
+pdf.set_font("DejaVu", size=12)
 pdf.ln(5)
 pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True)
 pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True)
 pdf.ln(10)
 
 for row in report_data:
-    pdf.set_font("Arial", "B", 12)
+    pdf.set_font("DejaVu", "B", 12)
     pdf.multi_cell(0, 8, f"{row[0]} – {row[1]}")
-    pdf.set_font("Arial", size=11)
+    pdf.set_font("DejaVu", size=11)
     pdf.multi_cell(0, 6, f"Next Step: {row[2]}")
     pdf.multi_cell(0, 6, f"Polaris Support: {row[3]}")
     pdf.ln(4)
