@@ -16,6 +16,11 @@ st.markdown("""
 # Governance | Outcome Alignment | Fault Detection | Knowledge Capture | Process Structure
 """)
 
+# Define safe text cleaner
+def safe_text(text):
+    return text.replace("–", "-").replace("•", "*").replace("“", "\"").replace("”", "\"").replace("’", "'")
+
+
 # Define capability dimensions and options
 dimensions = [
     "Governance",
