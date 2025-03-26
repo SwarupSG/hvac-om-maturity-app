@@ -227,6 +227,7 @@ elements.append(Paragraph("<b>HVAC O&M Maturity Diagnostic Summary</b>", title_s
 elements.append(Spacer(1, 12))
 elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
+elements.append(NextPageTemplate('WithLogo'))
 elements.append(PageBreak())
 
 # Executive Summary Section with product logo auto-applied by template
@@ -256,3 +257,4 @@ st.markdown(pdf_link, unsafe_allow_html=True)
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
+
