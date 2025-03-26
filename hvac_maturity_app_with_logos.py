@@ -8,10 +8,10 @@ st.title("🔧 HVAC O&M Maturity Diagnostic Tool")
 # Display logos side by side
 col1, col2 = st.columns([1, 5])
 with col1:
-    st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=200)
+    #st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=200)
 with col2:
     st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
-    st.caption("Powered by Polaris Co-Pilot")
+    #st.caption("Powered by Polaris Co-Pilot")
 
 # Define capability dimensions and options
 dimensions = [
