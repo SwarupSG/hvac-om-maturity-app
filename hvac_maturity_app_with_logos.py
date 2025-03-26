@@ -8,7 +8,9 @@ st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
 
 # App title
-st.title("🔧 HVAC O&M Maturity Diagnostic Tool")
+st.title("🔧 HVAC O&M Maturity Diagnostic Tool Across Five Capability Dimensions
+Governance | Outcome Alignment | Fault Detection | Knowledge Capture | Process Structure
+")
 
 
 # Display logos side by side
