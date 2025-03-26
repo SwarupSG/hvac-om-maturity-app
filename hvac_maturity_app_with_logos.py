@@ -196,7 +196,11 @@ product_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-
 def add_product_logo(canvas, doc):
     if doc.page > 1:
         canvas.saveState()
-        canvas.drawImage(product_logo_url, A4[0] - inch - 10, A4[1] - 0.6*inch, width=1.2*inch, height=0.4*inch, mask='auto')
+        # Maintain aspect ratio and position slightly to the left
+        logo_width = 1.1 * inch
+        logo_height = 0.37 * inch
+        canvas.drawImage(product_logo_url, A4[0] - logo_width - 30, A4[1] - logo_height - 30,
+                         width=logo_width, height=logo_height, preserveAspectRatio=True, mask='auto')
         canvas.restoreState()
 
 # Styles
