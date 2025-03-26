@@ -32,10 +32,10 @@ levels = ["1 - Reactive", "2 - Self Aware", "3 - Forward Thinking", "4 - Pioneer
 
 # Maturity level definitions
 maturity_definitions = {
-    "Reactive": "O&M actions are taken only after issues occur, typically in response to occupant complaints or equipment breakdowns. There are no formal processes, no performance tracking, and minimal documentation. Decisions are based on urgency rather than planning.",
-    "Self Aware": "The organization has basic visibility into O&M activities with some checklists, manual inspections, and incomplete record-keeping. Metrics are tracked inconsistently and used for reporting, not action. There is no structured connection between operations and business outcomes.",
-    "Forward Thinking": "O&M processes are digitally supported, with consistent tracking of faults, performance, and maintenance activities. Operational decisions are increasingly guided by metrics, and teams are held accountable through defined roles, goals, and periodic reviews. Fault detection is integrated but still siloed.",
-    "Pioneering": "O&M is outcome-aligned, predictive, and strategically integrated with business goals. All processes, insights, and learning are captured, reused, and continuously improved through AI-driven analysis and cross-team collaboration. Faults are detected early, resolved efficiently, and used to drive systemic improvements."
+    "Reactive": "Operations and maintenance are driven by complaints and breakdowns. There are no structured processes for tracking faults or validating corrective actions. Visibility is limited, and decisions are made reactively without long-term planning or root cause consideration.",
+    "Self Aware": "The organization has some awareness of recurring issues and begins using basic tools like checklists or logs. Faults are reported inconsistently, and manual processes dominate. Data may exist, but there is no framework to ensure follow-through, collaboration, or governance.",
+    "Forward Thinking": "O&M activities are aligned with operational priorities. Faults are systematically tracked and verified, and workflows are defined for teams and vendors. Decisions are increasingly based on structured data and process discipline. Governance mechanisms are emerging, improving visibility and accountability.",
+    "Pioneering": "O&M is proactive, collaborative, and continuously improving. Fault resolution is structured, trackable, and integrated across stakeholders. Data—automated or manual—is leveraged holistically to detect, resolve, and prevent faults. Governance is embedded in daily operations, enabling high performance and future readiness."
 }
 
 
