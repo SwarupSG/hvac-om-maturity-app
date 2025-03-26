@@ -215,24 +215,29 @@ pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True)
 pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True)
 
 # Per-dimension pages
+pdf.add_page()
+pdf.set_font("DejaVu", "B", 14)
+pdf.cell(0, 10, "Capability Breakdown", ln=True)
+pdf.ln(5)
+
 for row in report_data:
-    pdf.add_page()
-    pdf.image("app_logo.png", x=165, y=10, w=30)
-    pdf.set_font("DejaVu", "B", 14)
-    pdf.ln(10)
+    pdf.set_font("DejaVu", "B", 12)
     pdf.cell(0, 10, f"{row[0]} - {row[1]}", ln=True)
-    
+
     pdf.set_font("DejaVu", "B", 11)
-    pdf.ln(4)
     pdf.cell(0, 6, "Next Step:", ln=True)
     pdf.set_font("DejaVu", "", 11)
     pdf.multi_cell(0, 6, safe_text(row[2]))
+    pdf.ln(1)
 
     pdf.set_font("DejaVu", "B", 11)
-    pdf.ln(3)
     pdf.cell(0, 6, "Polaris Support:", ln=True)
     pdf.set_font("DejaVu", "", 11)
     pdf.multi_cell(0, 6, safe_text(row[3]))
+    pdf.ln(5)
+
+    pdf.line(20, pdf.get_y(), 190, pdf.get_y())
+    pdf.ln(5)
 
     # Footer with logo and copyright
     pdf.set_y(-25)
