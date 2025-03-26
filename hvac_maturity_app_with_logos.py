@@ -181,10 +181,17 @@ for dim in dimensions:
 st.markdown("---")
 st.header("📥 Download PDF Summary")
 
+#pdf = FPDF()
+#pdf.add_page()
+#pdf.set_font("Arial", "B", 16)
+#pdf.cell(0, 10, "HVAC O&M Maturity Diagnostic Summary", ln=True)
+
+from fpdf import FPDF
+
 pdf = FPDF()
 pdf.add_page()
-pdf.set_font("Arial", "B", 16)
-pdf.cell(0, 10, "HVAC O&M Maturity Diagnostic Summary", ln=True)
+pdf.add_font("ArialUnicode", "", fname="ArialUnicodeMS.ttf", uni=True)
+pdf.set_font("ArialUnicode", size=12)
 
 pdf.set_font("Arial", size=12)
 pdf.ln(5)
