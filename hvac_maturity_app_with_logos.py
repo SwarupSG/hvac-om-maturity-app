@@ -190,6 +190,7 @@ pdf.set_right_margin(15)
 pdf.add_page()
 try:
     pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
+    pdf.add_font("DejaVu", "B", "DejaVuSans-Bold.ttf", uni=True)
     pdf.set_font("DejaVu", "", 24)
     pdf.cell(0, 80, "", ln=True)
     pdf.cell(0, 15, "HVAC O&M Maturity Diagnostic Report", ln=True, align="C")
@@ -198,7 +199,7 @@ try:
     pdf.cell(0, 10, f"Overall Maturity Level: {maturity}", ln=True, align="C")
     pdf.cell(0, 10, f"Average Score: {average_score:.2f}", ln=True, align="C")
 except Exception as e:
-    st.error("⚠️ Unicode font 'DejaVuSans.ttf' not found or failed to load. Please upload it to your GitHub repo.")
+    st.error("⚠️ Font error: Make sure both DejaVuSans.ttf and DejaVuSans-Bold.ttf are uploaded to your GitHub repo.")
 
 # Logo page
 pdf.add_page()
