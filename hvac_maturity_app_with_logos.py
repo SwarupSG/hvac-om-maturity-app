@@ -176,6 +176,9 @@ for dim in dimensions:
 # Build PDF using Unicode-safe font
 st.markdown("### 📥 Download PDF Summary")
 pdf = FPDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.set_left_margin(15)
+pdf.set_right_margin(15)
 pdf.add_page()
 try:
     pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
