@@ -183,34 +183,56 @@ for dim in dimensions:
 # Generate PDF using ReportLab
 st.markdown("### 📅 Download PDF Summary")
 
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
 buffer = io.BytesIO()
-doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=30, leftMargin=30, topMargin=30, bottomMargin=30)
-elements = []
 
+# Define logos
+company_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png"
+product_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png"
+
+# Page template with product logo in top right corner
+def add_page_logo(canvas, doc):
+    canvas.saveState()
+    canvas.drawImage(product_logo_url, A4[0] - inch - 10, A4[1] - 0.6*inch, width=1.2*inch, height=0.4*inch, mask='auto')
+    canvas.restoreState()
+
+# Styles
 styles = getSampleStyleSheet()
 title_style = ParagraphStyle(name='TitleStyle', fontSize=18, leading=22, alignment=TA_CENTER, spaceAfter=20)
 header_style = styles['Heading2']
 normal_style = styles['BodyText']
 bold_style = ParagraphStyle(name='BoldStyle', parent=normal_style, fontName='Helvetica-Bold')
 
-# Cover Page
-elements.append(Paragraph("HVAC O&M Maturity Diagnostic Report", title_style))
-elements.append(Paragraph(f"Overall Maturity Level: <b>{maturity}</b>", normal_style))
-elements.append(Paragraph(f"Average Score: <b>{average_score:.2f}</b>", normal_style))
+# Set up the document and templates
+doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
+frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+doc.addPageTemplates([
+    PageTemplate(id='LogoPages', frames=frame, onPage=add_page_logo)
+])
+
+elements = []
+
+# Cover page (no product logo)
+company_logo = Image(company_logo_url, width=2*inch, height=0.6*inch)
+company_logo.hAlign = 'CENTER'
+elements.append(company_logo)
+elements.append(Spacer(1, 12))
+elements.append(Paragraph("<b>HVAC O&M Maturity Diagnostic Summary</b>", title_style))
+elements.append(Spacer(1, 12))
+elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
+elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
 elements.append(PageBreak())
 
-# Summary
-elements.append(Paragraph("Capability Breakdown", header_style))
-elements.append(Spacer(1, 12))
+# Content pages (with logo)
+elements.append(Paragraph("<b>Capability Breakdown</b>", header_style))
+elements.append(Spacer(1, 10))
 
 for row in report_data:
     elements.append(Paragraph(f"<b>{row[0]} - {row[1]}</b>", bold_style))
-    elements.append(Spacer(1, 6))
-    elements.append(Paragraph("<b>Next Step:</b> " + safe_text(row[2]), normal_style))
     elements.append(Spacer(1, 4))
+    elements.append(Paragraph("<b>Next Step:</b> " + safe_text(row[2]), normal_style))
+    elements.append(Spacer(1, 3))
     elements.append(Paragraph("<b>Polaris Support:</b> " + safe_text(row[3]), normal_style))
-    elements.append(Spacer(1, 12))
+    elements.append(Spacer(1, 10))
 
 # Finalize PDF
 doc.build(elements)
