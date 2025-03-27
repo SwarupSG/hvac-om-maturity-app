@@ -14,7 +14,7 @@ from reportlab.platypus import (
 
 
 # Page setup
-st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
+st.set_page_config(page_title="HVAC Operations & Maintenance Maturity Diagnostic", layout="wide")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png", width=150)
 
 st.markdown("""
