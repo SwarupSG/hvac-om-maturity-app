@@ -168,9 +168,9 @@ def safe_text(text):
 user_scores = {}
 report_data = []
 
-st.subheader("📊 Select Your Current Level for Each Capability")
+st.subheader("Select Your Current Level for Each Capability")
 for dim in dimensions:
-    st.subheader(f"🔹 {dim} – What Each Level Means")
+    st.subheader(f"{dim} – What Each Level Means")
     with st.expander("Click to view level definitions"):
         for i in range(4):
             st.markdown(f"**Level {i+1}:** {descriptions[dim][i]}")
@@ -190,16 +190,16 @@ else:
     maturity = "Reactive"
 
 st.markdown("---")
-st.header("🔍 Your Maturity Summary")
+st.header("Your Maturity Summary")
 st.metric("Average Score", f"{average_score:.2f}")
 st.success(f"Overall Maturity Level: **{maturity}**")
 
 st.markdown("---")
-st.header("📌 Dimension-Specific Recommendations")
+st.header("Dimension-Specific Recommendations")
 
 for dim in dimensions:
     i = user_scores[dim] - 1
-    st.subheader(f"🔹 {dim}")
+    st.subheader(f" {dim}")
     st.write(f"**Next Step:** {recommendations[dim][i]}")
     st.write(f"**How Polaris Helps:** {polaris_support[dim][i]}")
     report_data.append([
@@ -213,7 +213,7 @@ for dim in dimensions:
     ])
 
 # Generate PDF using ReportLab
-st.markdown("### 📅 Download PDF Summary")
+st.markdown("### Download PDF Summary")
 
 buffer = io.BytesIO()
 
@@ -235,6 +235,7 @@ def standard_footer_with_logo(canvas, doc):
     canvas.saveState()
     logo_width = 1.1 * inch
     logo_height = 0.37 * inch
+    canvas.line(40, 35, A4[0] - 40, 35)
     canvas.drawImage(product_logo_url, A4[0] - logo_width - 30, A4[1] - logo_height - 30,
                      width=logo_width, height=logo_height, preserveAspectRatio=True, mask='auto')
     canvas.setFont("Helvetica", 6)
