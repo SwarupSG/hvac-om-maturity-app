@@ -166,16 +166,13 @@ def safe_text(text):
 user_scores = {}
 report_data = []
 
-st.markdown("## Select Your Current Level for Each Capability", unsafe_allow_html=True)
-
+st.subheader("📊 Select Your Current Level for Each Capability")
 for dim in dimensions:
-    st.markdown(f"<h4>{dim}</h4>", unsafe_allow_html=True)
-    
-    with st.expander("View level definitions"):
+    st.subheader(f"🔹 {dim} – What Each Level Means")
+    with st.expander("Click to view level definitions"):
         for i in range(4):
-            st.markdown(f"<p style='margin-left:10px'><b>Level {i+1}:</b> {descriptions[dim][i]}</p>", unsafe_allow_html=True)
-    
-    level = st.selectbox(f"Select your current level for {dim}", levels, key=dim)
+            st.markdown(f"**Level {i+1}:** {descriptions[dim][i]}")
+    level = st.selectbox(f"Select your level for {dim}", levels, key=dim)
     score = int(level.split(" - ")[0])
     user_scores[dim] = score
 
@@ -191,12 +188,12 @@ else:
     maturity = "Reactive"
 
 st.markdown("---")
-st.header("Your Maturity Summary")
+st.header("🔍 Your Maturity Summary")
 st.metric("Average Score", f"{average_score:.2f}")
 st.success(f"Overall Maturity Level: **{maturity}**")
 
 st.markdown("---")
-st.header("Dimension-Specific Recommendations")
+st.header("📌 Dimension-Specific Recommendations")
 
 for dim in dimensions:
     i = user_scores[dim] - 1
@@ -214,7 +211,7 @@ for dim in dimensions:
     ])
 
 # Generate PDF using ReportLab
-st.markdown("### Download PDF Summary")
+st.markdown("### 📅 Download PDF Summary")
 
 buffer = io.BytesIO()
 
@@ -272,6 +269,22 @@ elements.append(Spacer(1, 12))
 elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
 elements.append(Spacer(1, 12))
+elements.append(Paragraph("<b>All HVAC O&M performance outcomes result from these two actions:</b>", bold_style))
+elements.append(Spacer(1, 6))
+elements.append(Paragraph("Completely address (prevent / resolve) all faults under these categories:", normal_style))
+elements.append(Paragraph("A. Complaints from Tenants / Occupants", normal_style))
+elements.append(Paragraph("B. Operator Introduced faults", normal_style))
+elements.append(Paragraph("C. System & Parts faults", normal_style))
+elements.append(Spacer(1, 8))
+elements.append(Spacer(1, 6))
+elements.append(Paragraph("1. Preventive Maintenance (Prevent Faults) is measured by preventive task completion rate with verifiable proof of work completed.", normal_style))
+elements.append(Spacer(1, 4))
+elements.append(Paragraph("2. Fault Resolution Management (Resolve Faults) is measured by the time taken from fault logging to resolution. These are:", normal_style))
+elements.append(Spacer(1, 4))
+elements.append(Paragraph("- Detect & Log Fault", normal_style))
+elements.append(Paragraph("- Verify Fault", normal_style))
+elements.append(Paragraph("- Resolve Fault", normal_style))
+elements.append(Spacer(1, 12))
 elements.append(Paragraph("<b>Maturity Level Overview</b>", bold_style))
 elements.append(Spacer(1, 6))
 for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
@@ -309,4 +322,3 @@ st.markdown(pdf_link, unsafe_allow_html=True)
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
-
