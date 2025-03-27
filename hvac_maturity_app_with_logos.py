@@ -166,13 +166,16 @@ def safe_text(text):
 user_scores = {}
 report_data = []
 
-st.subheader("📊 Select Your Current Level for Each Capability")
+st.markdown("## 📊 Select Your Current Level for Each Capability", unsafe_allow_html=True)
+
 for dim in dimensions:
-    st.subheader(f"🔹 {dim} – What Each Level Means")
-    with st.expander("Click to view level definitions"):
+    st.markdown(f"<h4>{dim}</h4>", unsafe_allow_html=True)
+    
+    with st.expander("View level definitions"):
         for i in range(4):
-            st.markdown(f"**Level {i+1}:** {descriptions[dim][i]}")
-    level = st.selectbox(f"Select your level for {dim}", levels, key=dim)
+            st.markdown(f"<p style='margin-left:10px'><b>Level {i+1}:</b> {descriptions[dim][i]}</p>", unsafe_allow_html=True)
+    
+    level = st.selectbox(f"Select your current level for {dim}", levels, key=dim)
     score = int(level.split(" - ")[0])
     user_scores[dim] = score
 
