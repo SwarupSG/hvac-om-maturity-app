@@ -267,7 +267,7 @@ company_logo.hAlign = 'CENTER'
 elements.append(company_logo)
 elements.append(Spacer(1, 12))
 elements.append(Paragraph("<b>HVAC O&M Maturity Diagnostic Summary</b>", title_style))
-elements.append(Spacer(1, 12))
+elements.append(Spacer(1, 6))
 elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
 elements.append(Spacer(1, 12))
