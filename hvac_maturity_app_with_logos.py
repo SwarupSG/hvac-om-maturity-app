@@ -233,11 +233,12 @@ dimension_title_style = ParagraphStyle(name='DimensionTitle', fontSize=14, leadi
 doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
 doc.addPageTemplates([
-    PageTemplate(id='WithLogo', frames=frame, onPage=standard_footer_with_logo),
-    PageTemplate(id='Cover', frames=frame, onPage=cover_footer)
+    PageTemplate(id='Cover', frames=frame, onPage=cover_footer),
+    PageTemplate(id='WithLogo', frames=frame, onPage=standard_footer_with_logo)
 ])
 
 elements = []
+elements.append(NextPageTemplate('Cover'))
 
 # Cover Page
 company_logo = Image(company_logo_url)
@@ -259,6 +260,7 @@ for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
     elements.append(Paragraph(f"<b>{level}:</b> {maturity_definitions[level]}", normal_style))
     elements.append(Spacer(1, 4))
 elements.append(PageBreak())
+elements.append(NextPageTemplate('WithLogo'))
 
 # Executive Summary Page
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
