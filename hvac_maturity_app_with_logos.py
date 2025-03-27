@@ -166,7 +166,7 @@ def safe_text(text):
 user_scores = {}
 report_data = []
 
-st.markdown("## 📊 Select Your Current Level for Each Capability", unsafe_allow_html=True)
+st.markdown("## Select Your Current Level for Each Capability", unsafe_allow_html=True)
 
 for dim in dimensions:
     st.markdown(f"<h4>{dim}</h4>", unsafe_allow_html=True)
@@ -191,12 +191,12 @@ else:
     maturity = "Reactive"
 
 st.markdown("---")
-st.header("🔍 Your Maturity Summary")
+st.header("Your Maturity Summary")
 st.metric("Average Score", f"{average_score:.2f}")
 st.success(f"Overall Maturity Level: **{maturity}**")
 
 st.markdown("---")
-st.header("📌 Dimension-Specific Recommendations")
+st.header("Dimension-Specific Recommendations")
 
 for dim in dimensions:
     i = user_scores[dim] - 1
@@ -214,7 +214,7 @@ for dim in dimensions:
     ])
 
 # Generate PDF using ReportLab
-st.markdown("### 📅 Download PDF Summary")
+st.markdown("### Download PDF Summary")
 
 buffer = io.BytesIO()
 
