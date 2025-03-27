@@ -141,6 +141,7 @@ polaris_support = {
 }
 
 
+
 def safe_text(text):
     return text.replace("–", "-").replace("•", "*").replace("“", "\"").replace("”", "\"").replace("’", "'")
 
@@ -261,6 +262,7 @@ for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
     elements.append(Spacer(1, 4))
 elements.append(PageBreak())
 elements.append(NextPageTemplate('WithLogo'))
+elements.append(FrameBreak())
 
 # Executive Summary Page
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
