@@ -160,6 +160,7 @@ polaris_support = {
 }
 
 
+
 def safe_text(text):
     return text.replace("–", "-").replace("•", "*").replace("“", "\"").replace("”", "\"").replace("’", "'")
 
@@ -270,25 +271,7 @@ elements.append(Spacer(1, 12))
 elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
 elements.append(Spacer(1, 12))
-elements.append(Paragraph("<b>All HVAC Operations & Maintenance (O&M) performance outcomes stem from two core actions:</b>", bold_style))
-elements.append(Spacer(1, 6))
-elements.append(Paragraph("1. Preventing Faults", normal_style))
-elements.append(Paragraph("2. Resolving Faults", normal_style))
-elements.append(Spacer(1, 8))
-elements.append(Paragraph("To achieve this, all faults must be fully addressed—either prevented or resolved—across the following categories:", normal_style))
-elements.append(Paragraph("A. Tenant/Occupant Complaints", normal_style))
-elements.append(Paragraph("B. Operator-Induced Faults", normal_style))
-elements.append(Paragraph("C. System and Component Faults", normal_style))
-elements.append(Spacer(1, 8))
-elements.append(Paragraph("1. <b>Preventive Maintenance</b>", normal_style))
-elements.append(Paragraph("This focuses on avoiding faults and is measured by the completion rate of preventive tasks, supported by verifiable proof of work.", normal_style))
-elements.append(Spacer(1, 6))
-elements.append(Paragraph("2. <b>Fault Resolution Management</b>", normal_style))
-elements.append(Paragraph("This focuses on resolving faults and is measured by the time taken from fault detection to resolution.", normal_style))
-elements.append(Paragraph("The process includes:", normal_style))
-elements.append(Paragraph("• Detect & Log the Fault", normal_style))
-elements.append(Paragraph("• Verify the Fault", normal_style))
-elements.append(Paragraph("• Resolve the Fault", normal_style))
+elements.append(Paragraph("<b>All HVAC Operations & Maintenance (O&M) performance outcomes stem from two core actions:</b> 1. Preventing Faults 2. Resolving Faults. To achieve this, all faults must be fully addressed—either prevented or resolved—across the following categories: A. Tenant/Occupant Complaints B. Operator-Induced Faults C. System and Component Faults. 1. Preventive Maintenance focuses on avoiding faults and is measured by the completion rate of preventive tasks, supported by verifiable proof of work. 2. Fault Resolution Management focuses on resolving faults and is measured by the time taken from fault detection to resolution. The process includes: Detect & Log the Fault, Verify the Fault, Resolve the Fault.", normal_style))
 elements.append(Spacer(1, 12))
 elements.append(Paragraph("<b>Maturity Level Overview</b>", bold_style))
 elements.append(Spacer(1, 6))
