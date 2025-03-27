@@ -134,19 +134,19 @@ polaris_support = {
         "Polaris provides predictive oversight through historical fault patterns and SLA performance trends."
     ],
     "Outcome Alignment": [
-        "Polaris maps O&M tasks to key goals—energy savings, tenant comfort, cost efficiency.",
-        "Polaris uses business KPIs to prioritize high-impact activities.",
-        "Polaris tracks resolution effectiveness and updates dashboards to reflect impact on performance.",
-        "Polaris continuously aligns tasks with evolving business goals using AI-powered recommendations."
+        "Polaris created an operating frameowork by mapping Maintenance tasks & Faults to key goals—energy savings, tenant comfort, cost efficiency.",
+        "Polaris uses business KPIs to prioritize high-impact activities associated with Maintenance and Fault Resolution.",
+        "Polaris tracks maintenance proof of work and resolution effectiveness and updates dashboards to reflect impact on performance.",
+        "Polaris updated the operating framwork based on evolving business goals and updates Maintenance tasks & Faults priorities."
     ],
     "Fault Detection": [
-        "Polaris supports fault detection even without BMS data through mobile inspections and structured logs.",
-        "Polaris centralizes manual and automated detection using a fault ontology.",
-        "Polaris unifies triage workflows, ensuring all fault sources are captured and prioritized.",
+        "Polaris supports fault detection even without BMS data through mobile inspections and structured guides.",
+        "Polaris centralizes & merges manual and automated detection using a fault ontology.",
+        "Polaris unifies triage workflows, ensuring all fault causes are captured and prioritized.",
         "Polaris drives root-cause verification through guided workflows and data-driven fault lifecycle tracking."
     ],
     "Knowledge Capture": [
-        "Polaris structures fault and resolution knowledge into reusable formats during daily use.",
+        "Polaris structures building specific fault and resolution knowledge into its operating framework.",
         "Polaris enables centralized resolution tracking for future training and guidance.",
         "Polaris applies captured knowledge to improve triage and resolution speed across teams.",
         "Polaris builds an adaptive, building-specific knowledge base that grows with every resolution."
@@ -155,7 +155,7 @@ polaris_support = {
         "Polaris standardizes task execution with guided mobile workflows.",
         "Polaris digitizes and tracks task progress across workgroups and vendors.",
         "Polaris enables dynamic adaptation of workflows using fault data and technician feedback.",
-        "Polaris powers intelligent process refinement for efficiency, accountability, and faster resolution."
+        "Polaris powers intelligent process refinement for efficiency, accountability, and faster resolution on its mobile platform."
     ]
 }
 
