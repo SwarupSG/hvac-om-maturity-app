@@ -141,6 +141,7 @@ polaris_support = {
 }
 
 
+
 def safe_text(text):
     return text.replace("–", "-").replace("•", "*").replace("“", "\"").replace("”", "\"").replace("’", "'")
 
@@ -202,13 +203,23 @@ company_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-
 product_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png"
 
 def add_product_logo(canvas, doc):
-    if doc.page > 1:
-        canvas.saveState()
+    canvas.saveState()
+    if doc.page == 1:
+        # Cover page footer
+        canvas.setStrokeColorRGB(0.7, 0.7, 0.7)
+        canvas.setLineWidth(0.5)
+        canvas.line(40, 35, A4[0] - 40, 35)
+        canvas.setFont("Helvetica", 6)
+        canvas.drawCentredString(A4[0] / 2, 25, "© Copyright Sustain Synergy Pte Ltd")
+    else:
+        # Product logo and standard footer
         logo_width = 1.1 * inch
         logo_height = 0.37 * inch
         canvas.drawImage(product_logo_url, A4[0] - logo_width - 30, A4[1] - logo_height - 30,
                          width=logo_width, height=logo_height, preserveAspectRatio=True, mask='auto')
-        canvas.restoreState()
+        canvas.setFont("Helvetica", 6)
+        canvas.drawCentredString(A4[0] / 2, 20, "Confidential | Created by Sustain Synergy Pte Ltd, Singapore")
+    canvas.restoreState()
 
 # Styles
 styles = getSampleStyleSheet()
@@ -249,7 +260,7 @@ for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
     elements.append(Paragraph(f"<b>{level}:</b> {maturity_definitions[level]}", normal_style))
     elements.append(Spacer(1, 4))
 elements.append(NextPageTemplate('WithLogo'))
-elements.append(PageBreak())
+elements.append(PageBreak()))
 
 # Executive Summary Page
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
