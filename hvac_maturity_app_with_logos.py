@@ -202,23 +202,24 @@ buffer = io.BytesIO()
 company_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png"
 product_logo_url = "https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/app_logo.png"
 
-def add_product_logo(canvas, doc):
+# Page templates
+def cover_footer(canvas, doc):
     canvas.saveState()
-    if doc.page == 1:
-        # Cover page footer
-        canvas.setStrokeColorRGB(0.7, 0.7, 0.7)
-        canvas.setLineWidth(0.5)
-        canvas.line(40, 35, A4[0] - 40, 35)
-        canvas.setFont("Helvetica", 6)
-        canvas.drawCentredString(A4[0] / 2, 25, "© Copyright Sustain Synergy Pte Ltd")
-    else:
-        # Product logo and standard footer
-        logo_width = 1.1 * inch
-        logo_height = 0.37 * inch
-        canvas.drawImage(product_logo_url, A4[0] - logo_width - 30, A4[1] - logo_height - 30,
-                         width=logo_width, height=logo_height, preserveAspectRatio=True, mask='auto')
-        canvas.setFont("Helvetica", 6)
-        canvas.drawCentredString(A4[0] / 2, 20, "Confidential | Created by Sustain Synergy Pte Ltd, Singapore")
+    canvas.setStrokeColorRGB(0.7, 0.7, 0.7)
+    canvas.setLineWidth(0.5)
+    canvas.line(40, 35, A4[0] - 40, 35)
+    canvas.setFont("Helvetica", 6)
+    canvas.drawCentredString(A4[0] / 2, 25, "© Copyright Sustain Synergy Pte Ltd")
+    canvas.restoreState()
+
+def standard_footer_with_logo(canvas, doc):
+    canvas.saveState()
+    logo_width = 1.1 * inch
+    logo_height = 0.37 * inch
+    canvas.drawImage(product_logo_url, A4[0] - logo_width - 30, A4[1] - logo_height - 30,
+                     width=logo_width, height=logo_height, preserveAspectRatio=True, mask='auto')
+    canvas.setFont("Helvetica", 6)
+    canvas.drawCentredString(A4[0] / 2, 20, "Confidential | Created by Sustain Synergy Pte Ltd, Singapore")
     canvas.restoreState()
 
 # Styles
@@ -233,7 +234,8 @@ dimension_title_style = ParagraphStyle(name='DimensionTitle', fontSize=14, leadi
 doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
 doc.addPageTemplates([
-    PageTemplate(id='WithLogo', frames=frame, onPage=add_product_logo)
+    PageTemplate(id='Cover', frames=frame, onPage=cover_footer),
+    PageTemplate(id='WithLogo', frames=frame, onPage=standard_footer_with_logo)
 ])
 
 elements = []
@@ -251,8 +253,6 @@ elements.append(Paragraph("<b>HVAC O&M Maturity Diagnostic Summary</b>", title_s
 elements.append(Spacer(1, 12))
 elements.append(Paragraph(f"<b>Overall Maturity Level:</b> {maturity}", normal_style))
 elements.append(Paragraph(f"<b>Average Score:</b> {average_score:.2f}", normal_style))
-elements.append(Spacer(1, 8))
-elements.append(Spacer(1, 12))
 elements.append(Spacer(1, 12))
 elements.append(Paragraph("<b>Maturity Level Overview</b>", bold_style))
 elements.append(Spacer(1, 6))
@@ -260,7 +260,7 @@ for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
     elements.append(Paragraph(f"<b>{level}:</b> {maturity_definitions[level]}", normal_style))
     elements.append(Spacer(1, 4))
 elements.append(NextPageTemplate('WithLogo'))
-elements.append(PageBreak()))
+elements.append(PageBreak())
 
 # Executive Summary Page
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
