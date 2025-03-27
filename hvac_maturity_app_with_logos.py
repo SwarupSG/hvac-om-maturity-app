@@ -3,11 +3,15 @@ import pandas as pd
 import io
 import base64
 from reportlab.lib.pagesizes import A4
-from reportlab.lib import colors
+from reportlab.lib.units import inch
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, PageBreak, Frame, PageTemplate, NextPageTemplate, FrameBreak
-from reportlab.lib.units import inch
+from reportlab.platypus import (
+    FrameBreak,
+    SimpleDocTemplate, Paragraph, Spacer, Image, PageBreak,
+    Frame, PageTemplate, NextPageTemplate
+)
+
 
 # Page setup
 st.set_page_config(page_title="HVAC O&M Maturity Diagnostic", layout="wide")
@@ -232,13 +236,10 @@ dimension_title_style = ParagraphStyle(name='DimensionTitle', fontSize=14, leadi
 # Set up PDF
 doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=40, leftMargin=40, topMargin=60, bottomMargin=40)
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
-doc.addPageTemplates([
-    PageTemplate(id='Cover', frames=frame, onPage=cover_footer),
-    PageTemplate(id='WithLogo', frames=frame, onPage=standard_footer_with_logo)
-])
+# Removed page templates; handled via build() below
 
 elements = []
-elements.append(NextPageTemplate('Cover'))
+
 
 # Cover Page
 company_logo = Image(company_logo_url)
@@ -260,8 +261,6 @@ for level in ["Reactive", "Self Aware", "Forward Thinking", "Pioneering"]:
     elements.append(Paragraph(f"<b>{level}:</b> {maturity_definitions[level]}", normal_style))
     elements.append(Spacer(1, 4))
 elements.append(PageBreak())
-elements.append(NextPageTemplate('WithLogo'))
-elements.append(FrameBreak())
 
 # Executive Summary Page
 elements.append(Paragraph("<b>Executive Summary</b>", title_style))
@@ -281,7 +280,7 @@ for row in report_data:
     elements.append(Spacer(1, 10))
 
 # Finalize PDF
-doc.build(elements)
+doc.build(elements, onFirstPage=cover_footer, onLaterPages=standard_footer_with_logo)
 buffer.seek(0)
 pdf_data = buffer.read()
 
@@ -293,3 +292,4 @@ st.markdown(pdf_link, unsafe_allow_html=True)
 st.markdown("---")
 st.image("https://raw.githubusercontent.com/SwarupSG/hvac-om-maturity-app/main/company_logo.png", width=220)
 st.caption("Built by Sustain Synergy Pte. Ltd.")
+
