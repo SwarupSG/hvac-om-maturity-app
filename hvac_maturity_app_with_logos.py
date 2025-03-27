@@ -33,12 +33,28 @@ dimensions = [
 
 levels = ["1 - Reactive", "2 - Self Aware", "3 - Forward Thinking", "4 - Pioneering"]
 
-# Maturity level definitions
 maturity_definitions = {
-    "Reactive": "Operations and maintenance are driven by complaints and breakdowns. There are no structured processes for tracking faults or validating corrective actions. Visibility is limited, and decisions are made reactively without long-term planning or root cause consideration.",
-    "Self Aware": "The organization has some awareness of recurring issues and begins using basic tools like checklists or logs. Faults are reported inconsistently, and manual processes dominate. Data may exist, but there is no framework to ensure follow-through, collaboration, or governance.",
-    "Forward Thinking": "O&M activities are aligned with operational priorities. Faults are systematically tracked and verified, and workflows are defined for teams and vendors. Decisions are increasingly based on structured data and process discipline. Governance mechanisms are emerging, improving visibility and accountability.",
-    "Pioneering": "O&M is proactive, collaborative, and continuously improving. Fault resolution is structured, trackable, and integrated across stakeholders. Data—automated or manual—is leveraged holistically to detect, resolve, and prevent faults. Governance is embedded in daily operations, enabling high performance and future readiness."
+    "Reactive": (
+        "Operations and maintenance are driven by complaints, equipment breakdowns, or ad-hoc inspections. "
+        "There is no structured approach to fault resolution or verification. Faults may go unrecorded, "
+        "and corrective actions are undocumented. Visibility is minimal, roles are unclear, and governance is absent."
+    ),
+    "Self Aware": (
+        "Basic awareness of issues begins to take shape through checklists, logs, or manual inspections. "
+        "Faults are captured inconsistently and often resolved without follow-up. Some data is available, "
+        "but there is no system to link faults to root causes or outcomes. Oversight is informal, and coordination is limited."
+    ),
+    "Forward Thinking": (
+        "O&M activities are linked to operational priorities such as energy efficiency, comfort, and cost control. "
+        "Faults and corrective actions are consistently tracked. Workflows are defined across internal teams and vendors, "
+        "enabling better collaboration and repeatability. Data is used for decisions, and governance structures begin to ensure accountability."
+    ),
+    "Pioneering": (
+        "O&M is proactive, structured, and outcome-driven. All faults are captured and resolved through guided workflows, "
+        "regardless of data availability. Manual and automated inputs converge into a unified resolution framework. "
+        "Governance is embedded in daily operations through role-based accountability, real-time tracking, and predictive insights. "
+        "Knowledge is captured, reused, and drives continuous improvement, making the building future-ready."
+    )
 }
 
 # Define descriptions for each dimension and level
